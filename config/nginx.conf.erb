@@ -82,7 +82,7 @@ http {
 		}
 
 		# Novo bloco de localização para /qlik/
-		location /qlik/ {
+		location /publico/ {
 			proxy_pass https://dd.serpro.gov.br/publico;
 			proxy_set_header Host $host;
 			proxy_set_header X-Real-IP $remote_addr;
