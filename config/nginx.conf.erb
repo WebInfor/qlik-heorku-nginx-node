@@ -46,6 +46,11 @@ http {
 	#	server unix:/tmp/nginx.socket fail_timeout=0;
  	#}
 
+	map $http_upgrade $connection_upgrade {
+		default upgrade;
+		''      close;
+    }
+
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
