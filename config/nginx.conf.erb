@@ -23,7 +23,7 @@ http {
 	default_type application/octet-stream;
 	sendfile on;
 
-	#Must read the body in 5 seconds.
+	# Must read the body in 5 seconds.
 	client_body_timeout 5;
 
 	#upstream app_server {
@@ -35,7 +35,7 @@ http {
 		server_name _;
 		keepalive_timeout 5;
 
-    root   /app/public;
+    root /app/public;
     #index  index.html index.htm;
 
 		location = / {
@@ -43,6 +43,20 @@ http {
 			proxy_set_header Host $http_host;
 			proxy_redirect off;
 			proxy_pass http://127.0.0.1:3000;
+		}
+
+		# Novo bloco de localização para /qlik/
+		location /qlik/ {
+			proxy_pass https://dd.serpro.gov.br/publico/sense/app/f58b3119-6726-4f25-b85b-5d34bf67248a/sheet/fed74ebc-0972-4bd9-9855-8e16921ce752/state/analysis;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+
+			# Para lidar com WebSockets, se necessário
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "upgrade";
 		}
 	}
 }
