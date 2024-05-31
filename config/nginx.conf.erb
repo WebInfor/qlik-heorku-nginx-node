@@ -51,6 +51,10 @@ http {
 		''      close;
     }
 
+	upstream ml {
+        server 127.0.0.1:3000;
+    }
+
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
