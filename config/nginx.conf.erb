@@ -36,13 +36,11 @@ http {
 	access_log logs/nginx/access.log l2met;
 	error_log logs/nginx/error.log;
 
+	# Other
 	server_tokens off;
-
 	include mime.types;
-	default_type application/octet-stream;
 	sendfile on;
-
-
+	default_type application/octet-stream;
 
 	#upstream app_server {
 	#	server unix:/tmp/nginx.socket fail_timeout=0;
